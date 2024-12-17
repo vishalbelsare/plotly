@@ -33,7 +33,7 @@ test_that("Categorical axis reflects custom scale mapping", {
     scale_x_discrete(limits = lims)
   
   expect_warning(p <- ggplotly(g, dynamicTicks = "x"), 
-                 regexp = "non-finite values")
+                 regexp = "non-finite")
   
   axisActual <- with(
     p$x$layout$xaxis, list(type, tickmode, categoryorder, categoryarray)
@@ -49,7 +49,7 @@ test_that("Categorical axis reflects custom scale mapping", {
     geom_bar() +
     scale_x_discrete(limits = lims, labels = labs)
   expect_warning(p <- ggplotly(g, dynamicTicks = "x"), 
-                 regexp = "non-finite values")
+                 regexp = "non-finite")
   
   axisActual <- with(
     p$x$layout$xaxis, list(type, tickmode, categoryorder, categoryarray)
@@ -96,7 +96,7 @@ test_that("Time axis inverse transforms correctly", {
 test_that("Inverse maps colorbar data", {
   
   p <- ggplot(mpg, aes(hwy, manufacturer)) + 
-    stat_bin2d(aes(fill = ..density..), binwidth = c(3,1))
+    stat_bin2d(aes(fill = after_stat(density)), binwidth = c(3,1))
   
   l <- ggplotly(p, dynamicTicks = TRUE)$x
   

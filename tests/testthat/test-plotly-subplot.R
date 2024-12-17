@@ -148,7 +148,7 @@ test_that("ggplotly understands GGally", {
     v5 = v1 ** 2
   )
   expect_doppelganger(
-    ggcorr(data, method = c("everything", "pearson")),
+    GGally::ggcorr(d, method = c("everything", "pearson")),
     "ggally-ggcorr"
   )
 })
@@ -272,6 +272,21 @@ test_that("shape paper repositioning", {
   expect_equal(x1, c(0.36, 30))
   expect_equal(y0, c(0, 0.25))
   expect_equal(y1, c(30, 0.75))
+})
+
+test_that("raster2uri supports nativeRaster objects", {
+  skip_if_not_installed("png")
+
+  r <- as.raster(matrix(c("black", "red", "green", "blue"), ncol = 4L))
+  nr <- structure(
+    c(-16777216L, -16776961L, -16711936L, -65536L),
+    dim = c(1L, 4L),
+    class = "nativeRaster",
+    channels = 4L
+  )
+  uri_r <- raster2uri(r)
+  uri_nr <- raster2uri(nr)
+  expect_equal(uri_r, uri_nr)
 })
 
 

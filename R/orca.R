@@ -1,6 +1,6 @@
 #' Static image exporting via orca
 #' 
-#' Superseded by [kaleido()].
+#' This function is deprecated, use [save_image()] instead.
 #' 
 #' @param p a plotly object.
 #' @param file output filename.
@@ -27,7 +27,7 @@
 #' @author Carson Sievert
 #' @md
 #' @rdname orca
-#' @examples
+#' @examplesIf interactive() || !identical(.Platform$OS.type, "windows")
 #' 
 #' \dontrun{
 #' # NOTE: in a headless environment, you may need to set `more_args="--enable-webgl"`
@@ -60,7 +60,7 @@ orca <- function(p, file = "plot.png", format = tools::file_ext(file),
                  parallel_limit = NULL, verbose = FALSE, debug = FALSE, 
                  safe = FALSE, more_args = NULL, ...) {
   
-  .Deprecated("kaleido")
+  .Deprecated("save_image")
   
   orca_available()
   

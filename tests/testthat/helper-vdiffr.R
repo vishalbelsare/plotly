@@ -4,6 +4,8 @@ message("Visual testing is ", if (!visual_testing) "not ", "enabled.")
 
 # start up the orca image server
 imageServer <- if (visual_testing) {
+  # https://github.com/plotly/plotly.R/issues/2179
+  reticulate::py_run_string("import sys") 
   kaleido() 
 } else {
   list(transform = function(...) stop("Visual testing is disabled!"))
@@ -27,7 +29,12 @@ expect_doppelganger <- function(p, name, ...) {
   set.seed(555)
   
   write_plotly_svg(p, path)
-  testthat::expect_snapshot_file(path = path, name = file, cran = FALSE)
+  testthat::expect_snapshot_file(
+    path = path, name = file, cran = FALSE,
+    compare = function(old, new) {
+      compare_file_text(old, new) || identical(rsvg::rsvg_png(old), rsvg::rsvg_png(new))
+    }
+  )
 }
 
 # run visual test and return 'built' data/layout

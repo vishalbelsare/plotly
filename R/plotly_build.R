@@ -8,7 +8,7 @@
 #' @param p a ggplot object, or a plotly object, or a list.
 #' @param registerFrames should a frame trace attribute be interpreted as frames in an animation?
 #' @export
-#' @examples
+#' @examplesIf interactive() || !identical(.Platform$OS.type, "windows")
 #'
 #' p <- plot_ly(economics, x = ~date, y = ~pce)
 #' # the unevaluated plotly object
@@ -395,11 +395,7 @@ plotly_build.plotly <- function(p, registerFrames = TRUE) {
   
   # if a partial bundle was specified, make sure it supports the visualization
   p <- verify_partial_bundle(p)
-  
-  # scattergl currently doesn't render in RStudio on Windows
-  # https://github.com/ropensci/plotly/issues/1214
-  p <- verify_scattergl_platform(p)
-  
+
   # make sure plots don't get sent out of the network (for enterprise)
   p$x$base_url <- get_domain()
   p
@@ -673,6 +669,8 @@ map_size <- function(traces, stroke = FALSE) {
 }
 
 # appends a new (empty) trace to generate (plot-wide) colorbar/colorscale
+#' @importFrom rlang is_na
+#
 map_color <- function(traces, stroke = FALSE, title = "", colorway, na.color = "transparent") {
   color <- if (stroke) {
     lapply(traces, function(x) { x[["stroke"]] %||% x[["color"]] })
@@ -743,7 +741,7 @@ map_color <- function(traces, stroke = FALSE, title = "", colorway, na.color = "
         if (!has_attr(type, attr)) next
         if (is_colorway && "textfont" == attr) next
         col <- if (isSingular) rgba_ else if (array_ok(attrs[[attr]]$color)) rgba else NA
-        if (is.na(col)) {
+        if (is_na(col)) {
           warning("`", attr, ".color` does not currently support multiple values.", call. = FALSE)
         } else {
           trace[[attr]] <- modify_list(list(color = default_(col)), trace[[attr]])
@@ -759,7 +757,7 @@ map_color <- function(traces, stroke = FALSE, title = "", colorway, na.color = "
       } else if (has_attr(type, "line")) {
         # if fill does not exist, 'color' controls line.color
         col <- if (isSingular) rgba_ else if (array_ok(attrs$line$color)) rgba else NA
-        if (is.na(col)) {
+        if (is_na(col)) {
           warning("`line.color` does not currently support multiple values.", call. = FALSE)
         } else {
           trace[["line"]] <- modify_list(list(color = default_(col)), trace[["line"]])

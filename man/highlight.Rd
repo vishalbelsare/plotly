@@ -55,8 +55,10 @@ highlighting selections. See \code{\link[=toRGB]{toRGB()}} for valid color
 specifications. If \code{NULL} (the default), the color of selected marks
 are not altered.}
 
-\item{selectize}{provide a selectize.js widget for selecting keys? Note that
-the label used for this widget derives from the groupName of the SharedData object.}
+\item{selectize}{whether or not to render a selectize.js widget for selecting
+\code{\link[=highlight_key]{highlight_key()}} values. A list of additional selectize.js options may
+also be provided. The label used for this widget should be set via the
+\code{groupName} argument of \code{\link[=highlight_key]{highlight_key()}}.}
 
 \item{defaultValues}{a vector of values for setting a "default selection".
 These values should match the key attribute.}
@@ -82,6 +84,7 @@ other htmlwidgets will respect these options, such as persistent selection
 in leaflet (see \code{demo("highlight-leaflet", package = "plotly")}).
 }
 \examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 # These examples are designed to show you how to highlight/brush a *single*
 # view. For examples of multiple linked views, see `demo(package = "plotly")` 
@@ -104,7 +107,7 @@ s <- attrs_selected(
 )
 
 highlight(layout(gg, showlegend = TRUE), selected = s)
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 \url{https://plotly-r.com/client-side-linking.html}

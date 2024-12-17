@@ -5,16 +5,20 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ropensci/plotly/workflows/R-CMD-check/badge.svg)](https://github.com/plotly/plotly.R/actions)
-[![CRAN
-Status](https://www.r-pkg.org/badges/version/plotly)](https://cran.r-project.org/package=plotly)
-[![CRAN
-Downloads](https://cranlogs.r-pkg.org/badges/grand-total/plotly)](https://www.rpackages.io/package/plotly)
-[![monthly](https://cranlogs.r-pkg.org/badges/plotly)](https://www.rpackages.io/package/plotly)
+[![CRAN Status](https://www.r-pkg.org/badges/version/plotly)](https://cran.r-project.org/package=plotly)
+[![CRAN Downloads](https://cranlogs.r-pkg.org/badges/grand-total/plotly)](https://cranlogs.r-pkg.org/badges/grand-total/plotly)
+[![monthly](https://cranlogs.r-pkg.org/badges/plotly)](https://cranlogs.r-pkg.org/badges/plotly)
 <!-- badges: end -->
 
 An R package for creating interactive web graphics via the open source
 JavaScript graphing library
 [plotly.js](https://github.com/plotly/plotly.js).
+
+<div align="center">
+  <a href="https://dash.plotly.com/project-maintenance">
+    <img src="https://dash.plotly.com/assets/images/maintained-by-community.png" width="400px" alt="Maintained by the Plotly Community">
+  </a>
+</div>
 
 ## Installation
 
@@ -109,7 +113,3 @@ guidelines](https://github.com/plotly/plotly.R/blob/master/CONTRIBUTING.md).
 Included are directions for opening issues, asking questions,
 contributing changes to plotly, and our code of
 conduct.
-
------
-
-![<https://ropensci.org>](https://www.ropensci.org/public_images/github_footer.png)
